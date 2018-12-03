@@ -1,0 +1,85 @@
+{extend name="Public:public" /}
+{block name="title"}疾风科技-友情列表{/block}
+{block name="man"}
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                友情列表
+                            </h2>
+                            <div style="text-align:right;">
+                            	<a class="btn btn-primary waves-effect" href="/adminlink/add">添加友情链接</a>
+                            </div>  
+                        </div>
+                        <div class="body table-responsive">
+                            <table style="clear:both;" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>名称</th>
+                                        <th>链接</th>
+                                        <th>联系人</th>
+                                        <th>手机号</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="list">
+                                    {if condition="!empty($data)"}
+                                	{volist name="data" id="vo"}
+                                    <tr>
+                                        <td scope="row">{$vo.id}</td>
+                                        <td>{$vo.webname}</td>
+                                        <td>{$vo.url}</td>
+                                        <td>{$vo.name}</td>
+                                        <td>{$vo.phone}</td>
+                                    	<td>	
+                                                {switch name="$vo.status"}
+                                                    {case value="0"}启用
+                                                    {/case}
+                                                    {case value="1"}审核中
+                                                    {/case}
+                                                    {default /}下架
+                                                {/switch}
+                                    	</td>
+                                        <td>
+                                        	<a href="/adminlink/edit/id/{$vo.id}" class="btn btn-primary waves-effect">编辑</a>
+                                        	<bottom onclick="deletes({$vo.id})"  class="btn bg-pink waves-effect">删除</bottom>
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                    {else/}
+                                    <tr>
+                                        <td colspan="6" style="text-align:center;">没有数据</td>
+                                    </tr>
+                                    {/if}  
+                                </tbody>
+                            </table>
+                        </div>
+                        <nav style="text-align:right;">
+                            {$data->appends($request)->render()}
+                        </nav>
+                    </div>
+                </div>
+{/block}
+{block name="myjs"}
+	<script>
+	function deletes(ids){
+            $.ajax({
+                url:'/adminlink/delete',
+                type:'post',
+                data:{id:ids},
+                success:function(data){
+                    if(data.code > 0){
+                        iziToast.error({timeout: 1000,title: '友情提示',message:data.msg});
+                    setTimeout(function(){
+                      location.href=data.url;
+                    },1000);
+                    }else{
+                        iziToast.error({timeout: 1000,title: '友情提示',message:data.msg}); 
+                    }
+                },
+            });
+        }
+	</script>
+{/block}

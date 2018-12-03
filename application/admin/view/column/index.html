@@ -1,0 +1,72 @@
+{extend name="Public:public" /}
+{block name="title"}疾风科技-栏目列表{/block}
+{block name="man"}
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                栏目列表
+                            </h2>
+
+                            <div style="text-align:right;">
+                            	<!-- <a class="btn btn-primary waves-effect" href="/admincolumn/add">添加文章</a> -->
+                            </div>  
+                        </div>
+                        <div class="body table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>栏目</th>
+                                        <th>标题</th>
+                                        <th>关键词</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="list">
+                                	{if condition="!empty($data)"}
+                                	{volist name="data" id="vo"}
+                                    <tr>
+                                        <td scope="row">{$vo.id}</td>
+                                        <td>{$vo.column}</td>  
+                                        <td>{$vo.ctitle}</td>
+                                        <td>{$vo.keywords}</td>
+                                        <td>
+                                            <!-- <a href="/admincolumn/rbacadd/id/{$vo.id}" class="btn btn-primary waves-effect">查看</a> -->
+                                        	<a href="/admincolumn/edit/id/{$vo.id}" class="btn btn-primary waves-effect">编辑</a>
+                                        	<!-- <bottom onclick="deletes({$vo.id})"  class="btn bg-pink waves-effect">删除</bottom> -->
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                    {else /}
+                                    <tr>
+                                    	<td colspan="5" style="text-align:center;">没有数据</td>
+                                    </tr>
+                                    {/if}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+{/block}
+{block name="myjs"}
+	<script>
+	function deletes(ids){
+            $.ajax({
+                url:'/admincolumn/delete',
+                type:'post',
+                data:{id:ids},
+                success:function(data){
+                    if(data.code > 0){
+                        iziToast.error({timeout: 1000,title: '友情提示',message:data.msg});
+                    setTimeout(function(){
+                      location.href=data.url;
+                    },1000);
+                    }else{
+                        iziToast.error({timeout: 1000,title: '友情提示',message:data.msg}); 
+                    }
+                },
+            });
+        }
+	</script>
+{/block}

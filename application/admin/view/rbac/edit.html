@@ -1,0 +1,82 @@
+{extend name="Public:public" /}
+{block name="title"}疾风科技-权限修改{/block}
+{block name="man"}
+<div class="card">
+                        <div class="header">
+                            <h2>
+                               权限修改
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <form class="form-horizontal" id="role_form" method="post" action="/adminrbacn/update">
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">权限名称</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="email_address_2" name="name" value="{$data['name']}" class="form-control" placeholder="管理员浏览">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">控制器权限</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="password_2" name="mname" value="{$data['mname']}" class="form-control" placeholder="User">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="id" value="{$data['id']}">
+                                <input type="hidden" name="yname" value="{$data['name']}">
+                                 <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">方法权限</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="password_2" name="aname" value="{$data['aname']}" class="form-control" placeholder="index">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                                        <input type="radio" id="ig_radio" {if condition = "$data['status'] == 0"}checked{/if} name="status" value="0" class="with-gap">
+                                        <label for="ig_radio">开启</label>
+                                        <input type="radio" id="ig_radios" {if condition = "$data['status'] == 1"}checked{/if} name="status" value="1" class="with-gap">
+                                        <label for="ig_radios">禁用</label>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                                        <button type="button" id="submit" class="btn btn-primary m-t-15 waves-effect">修改</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+{/block}
+{block name="myjs"}
+<script>
+	$('#submit').click(function(){
+    $('#role_form').ajaxSubmit(function(data){
+        if(data.code > '0'){
+           iziToast.error({timeout: 1000,title: '友情提示',message:data.msg});
+           setTimeout(function(){
+                      location.href=data['url'];
+                    },1000);
+        }else {
+           iziToast.error({timeout: 3000,title: '友情提示',message:data.msg});
+        }
+    });
+});
+</script>
+{/block}

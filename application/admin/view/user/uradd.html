@@ -1,0 +1,87 @@
+{extend name="Public:public" /}
+{block name="title"}疾风科技-角色分配{/block}
+{block name="man"}
+<div class="card">
+                        <div class="header">
+                            <h2>
+                               角色分配
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <form class="form-horizontal" id="rn_form" method="post" action="/adminuser/urinsert">
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">用户名</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="email_address_2" disabled name="username" class="form-control"  value="{$data['username']}">
+                                            </div>
+                                            <input type="hidden" name="uid" value="{$data['id']}">
+                                            <div class="body table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><input type="checkbox" name="xsz[]" id="qxk" ><label for="qxk">全选</label></th>  
+                                                                <th>序号</th>
+                                                                <th>角色名称</th>
+                                                                <th>角色描述</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="list">
+                                                            {if condition="!empty($rn)"}
+                                                            {volist name="rn" id="vo"}
+                                                            <tr>
+                                                                <td>
+                                                                       <input {if condition="substr_count($ids['rid'],$vo.rid) > 0"}
+                                                                       checked
+                                                                       {else /}{/if} type="checkbox" id="basic_checkbox_{$vo.rid}" name="rid[]" value="{$vo.rid}" ><label for="basic_checkbox_{$vo.rid}"></label>
+                                                                    
+                                                                </td>
+                                                                <td scope="row">{$vo.rid}</td>
+                                                                <td>{$vo.rname}</td>
+                                                                <td>{$vo.remark}</td>
+                                                            </tr>
+                                                            {/volist}
+                                                            {else/}
+                                                            <tr>
+                                                                <td colspan="6" style="text-align:center;">没有数据</td>
+                                                            </tr>
+                                                            {/if}  
+                                                        </tbody>
+                                                    </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                                        <button style="float:right;margin-right:50px;" type="button" id="submit" class="btn btn-primary m-t-15 waves-effect">保存</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+{/block}
+{block name="myjs"}
+<script>
+        $("#qxk").click(function () { 
+         $("#list :checkbox").each(function () {  
+              $(this).prop("checked", !$(this).prop("checked"));  
+         });
+    });
+        $('#submit').click(function(){
+        $('#rn_form').ajaxSubmit(function(data){
+            if(data.code > 0){
+                iziToast.error({timeout: 1000,title: '友情提示',message:data.msg});
+                setTimeout(function(){
+                      location.href=data['url'];
+                    },1000);
+            }else{
+               iziToast.error({timeout: 1000,title: '友情提示',message:data.msg});
+            }
+        });
+    });
+</script>
+{/block}

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>{block name="title" }{/block}</title>
+ <!-- Favicon-->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="/static/admin/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="/static/admin/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="/static/admin/animate-css/animate.css" rel="stylesheet" />
+        <!-- Sweet Alert Css -->
+    <link href="/static/admin/sweetalert/sweetalert.css" rel="stylesheet" />
+    
+    <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="/static/admin/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+
+    <!-- Bootstrap DatePicker Css -->
+    <link href="/static/admin/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+
+    <!-- Wait Me Css -->
+    <link href="/static/admin/waitme/waitMe.css" rel="stylesheet" />
+
+    <!-- Bootstrap Select Css -->
+    <link href="/static/admin/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="/static/admin/css/style.css" rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="/static/admin/css/themes/all-themes.css" rel="stylesheet" />
+    <link href="/static/admin/css/iziToast.min.css" rel="stylesheet" />
+     <!-- JQuery DataTable Css -->
+    <link href="/static/admin/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+</head>
+<style type="text/css" media="screen">
+    .view{
+        overflow-y:auto;
+        height:300px;
+    }
+</style>
+
+<body class="theme-red">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <div class="search-icon">
+            <i class="material-icons">search</i>
+        </div>
+        <input type="text" placeholder="START TYPING...">
+        <div class="close-search">
+            <i class="material-icons">close</i>
+        </div>
+    </div>
+    <!-- #END# Search Bar -->
+    <!-- Top Bar -->
+    <nav class="navbar" style="background-color:#F44336;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand" href="/admin/Index">logo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            {$Request.session.adminuser}
+                        </a>
+                    </li>
+                    <li class="pull-right" id="logout" ><a href="#">退出</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="active">
+                        <a href="/admin/Index">
+                            <i class="material-icons">home</i>
+                            <span>首页</span>
+                        </a>
+                    </li>
+                       <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">person</i>
+                            <span>管理员管理</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/adminuser/index">管理员列表</a>
+                            </li>
+                            <li>
+                                <a href="/adminuser/add">添加管理员</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">people</i>
+                            <span>角色管理</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/adminrbac/index">角色列表</a>
+                            </li>
+                            <li>
+                                <a href="/adminrbac/add">添加角色</a>
+                            </li>
+                        </ul>
+                    </li>
+                      <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">fingerprint</i>
+                            <span>权限管理</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/adminrbacn/index">权限列表</a>
+                            </li>
+                            <li>
+                                <a href="/adminrbacn/add">权限添加</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">view_list</i>
+                            <span>产品管理</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/admingoods/index">产品列表</a>
+                            </li>
+                            <li>
+                                <a href="/admingoods/add">产品添加</a>
+                            </li>
+                        </ul>
+                    </li>
+                     <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">border_color</i>
+                            <span>文章管理</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/adminarticle/index">文章列表</a>
+                            </li>
+                            <li>
+                                <a href="/adminarticle/add">文章添加</a>
+                            </li>
+                        </ul>
+                    </li>
+                     <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">multiline_chart</i>
+                            <span>案例管理</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/admincase/index">案例列表</a>
+                            </li>
+                            <li>
+                                <a href="/admincase/add">案例添加</a>
+                            </li>
+                        </ul>
+                    </li>
+                     <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">work</i>
+                            <span>招聘信息</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/adminwork/index">信息列表</a>
+                            </li>
+                            <li>
+                                <a href="/adminwork/add">信息添加</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>栏目管理</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/admincolumn/index">栏目列表</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">thumbs_up_down</i>
+                            <span>友情链接</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/adminlink/index">友情链接列表</a>
+                            </li>
+                            <li>
+                                <a href="/adminlink/add">友情链接添加</a>
+                            </li>
+                        </ul>
+                    </li>
+                   <!--  <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">assignment</i>
+                            <span>单页面管理</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/adminsingle/index">单页面列表</a>
+                            </li>
+                        </ul>
+                    </li> -->
+                     <li>
+                       <a href="javascript:void(0);" class="menu-toggle">
+                           <i class="material-icons">assignment</i>
+                           <span>幻灯片管理</span>
+                       </a>
+                       <ul class="ml-menu">
+                           <li>
+                               <a href="/adminbanner/index">幻灯片列表</a>
+                           </li>
+                           <li>
+                               <a href="/adminbanner/add">幻灯片添加</a>
+                           </li>
+                       </ul>
+                   </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">settings</i>
+                            <span>系统管理</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/adminsystem/index">登录日志</a>
+                            </li>
+                            <li>
+                                <a href="/adminsystem/indexs">操作日志</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">build</i>
+                            <span>备份管理</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="/adminbackup/index">备份列表</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- #Menu -->
+            <!-- Footer -->
+            <div class="legal">
+                <div class="copyright">
+                    &copy; 2016 - 2017 <a href="javascript:void(0);">AdminBSB - Material Design</a>.
+                </div>
+                <div class="version">
+                    <b>Version: </b> 1.0.5
+                </div>
+            </div>
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+        <!-- Right Sidebar -->
+        <aside id="rightsidebar" class="right-sidebar">
+         <!--    <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                <li role="presentation" class="active"><a href="#skins" data-toggle="tab">SKINS</a></li>
+                <li role="presentation"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+            </ul> -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
+                   <!--  <ul class="demo-choose-skin">
+                        <li data-theme="red" class="active">
+                            <div class="red"></div>
+                            <span>Red</span>
+                        </li>
+                    </ul> -->
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="settings">
+                    <div class="demo-settings">
+                      <!--   <p>GENERAL SETTINGS</p>
+                        <ul class="setting-list">
+                            <li>
+                                <span>Report Panel Usage</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                        </ul> -->
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- #END# Right Sidebar -->
+    </section>
+    <section class="content">
+        {block name="man"}{/block}
+    </section>
+
+   
+
+    <!-- Jquery Core Js -->
+    <script src="/static/admin/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="/static/admin/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="/static/admin/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="/static/admin/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/static/admin/node-waves/waves.js"></script>
+
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="/static/admin/jquery-countto/jquery.countTo.js"></script>
+
+    <script src="/static/admin/jquery-validation/jquery.validate.js"></script>
+
+    <script src="/static/admin/jquery-steps/jquery.steps.js"></script>
+
+    <!-- Sweet Alert Plugin Js -->
+    <script src="/static/admin/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Morris Plugin Js -->
+    <script src="/static/admin/raphael/raphael.min.js"></script>
+    <script src="/static/admin/morrisjs/morris.js"></script>
+
+    <!-- ChartJs -->
+    <script src="/static/admin/chartjs/Chart.bundle.js"></script>
+
+    <!-- Flot Charts Plugin Js -->
+    <script src="/static/admin/flot-charts/jquery.flot.js"></script>
+    <script src="/static/admin/flot-charts/jquery.flot.resize.js"></script>
+    <script src="/static/admin/flot-charts/jquery.flot.pie.js"></script>
+    <script src="/static/admin/flot-charts/jquery.flot.categories.js"></script>
+    <script src="/static/admin/flot-charts/jquery.flot.time.js"></script>
+
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="/static/admin/jquery-sparkline/jquery.sparkline.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/static/admin/js/admin.js"></script>
+    <script src="/static/admin/js/pages/index.js"></script>
+    <script src="/static/admin/js/pages/forms/form-validation.js"></script>
+
+    <!-- Demo Js -->
+    <script src="/static/admin/js/demo.js"></script>
+    <!-- Demo Js -->
+     <script src="/static/admin/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="/static/admin/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="/static/admin/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="/static/admin/js/pages/tables/jquery-datatable.js"></script>
+    <script src="/static/admin/js/iziToast.min.js"></script>
+    <script src="/static/admin/js/jquery.form.min.js"></script>
+    <script src="/static/admin/jquery/jquery.base64.js"></script>
+    <script>
+        $('#logout').click(function(){
+            $.ajax({
+                url:'/adminlogin/logout',
+                type:'post',
+                data:{a:'b'},
+                success:function(data){
+                     if(data.code > '0'){
+                       iziToast.error({timeout: 1000,title: '友情提示',message:data.msg});
+                       setTimeout(function(){
+                                  location.href=data['url'];
+                                },1000);
+                    }else {
+                       iziToast.error({timeout: 3000,title: '友情提示',message:data.msg});
+                    }
+                }
+            });
+
+        });
+    </script>
+    {block name="myjs"}{/block}
+</body>
+
+</html>

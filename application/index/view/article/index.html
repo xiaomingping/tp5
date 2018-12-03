@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+  <title>{$arr['ctitle']}</title>
+  <meta name="keywords" content="{$arr['keywords']}" />
+  <meta name="description" content="{$arr['description']}" />
+  <link rel="stylesheet" href="/static/home/res/layui/css/layui.css">
+  <link rel="stylesheet" href="/static/home/res/static/css/index.css">
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script src="//code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- nav部分 -->
+  <div class="nav">
+    <div class="layui-container">
+      <!-- 公司logo -->
+      <div class="nav-logo">
+        <a href="/index/index">
+          <img src="/static/home/res/static/img/logo.png" alt="{$arr['ctitle']}">
+        </a>
+      </div>
+      <div class="nav-list">
+        <button>
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="layui-nav" lay-filter="">
+          <li class="layui-nav-item"><a href="/index/index">首页</a></li>
+          <li class="layui-nav-item"><a href="/goods/index">产品</a></li>
+          <li class="layui-nav-item layui-this"><a href="/article/index">动态</a></li>
+          <li class="layui-nav-item"><a href="/myCase/index">案例</a></li>
+          <li class="layui-nav-item"><a href="/about/index">关于</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- banner部分 -->
+  <div class="banner news">
+    <div class="title">
+      <p>实时新闻</p>
+      <p class="en">Real-time News</p>
+    </div>
+  </div>
+  <!-- main -->
+  <div class="main-news">
+    <div class="layui-container">
+      <div class="layui-row layui-col-space20">
+      {volist name="data" id="vo"}
+          <div class="layui-col-lg6 content">
+            <div>
+              <div class="news-img"><a href="/article/info/id/{$vo.id}"><img width="169px" height="130px" src="{$vo.pic}"></a></div><div class="news-panel">
+                <strong><a href="/article/info/id/{$vo.id}">{$vo.title}</a></strong>
+                <p class="detail"><span>{$vo.descr}</span><a href="/article/info/id/{$vo.id}">[详细]</a></p>
+                <p class="read-push">&nbsp;&nbsp;&nbsp;&nbsp;发布时间：<span>{$vo.addtime|date="Y-m-d",###}</span></p>
+              </div>
+            </div>
+          </div>
+    {/volist}
+      </div>
+      <!--<div id="newsPage"></div>-->
+      <div style="text-align:center;">{$data->render()}</div>
+
+    </div>
+  </div>
+ <!-- footer部分 -->
+ {:widget("Cate/footer")}

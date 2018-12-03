@@ -1,0 +1,20 @@
+<div class="main-service">
+    <div class="layui-container">
+      <p class="title"><span style="margin:0 auto;">经典案例</span></p>
+      <div class="layui-row layui-col-space25 layui-col-space80">
+      {volist name="data" id="vo"}
+        <div class="layui-col-sm6">
+          <div class="content">
+            <div class="content-left"><img width="280px" height="196px" src="{$vo.pic}"></div>
+            <div class="content-right">
+              <p class="label">{$vo.title}</p>
+              <span></span>
+              {$vo.descr}
+            </div>
+          </div>
+        </div>
+      {/volist}
+      </div>
+      <div class="service-more"><a href="/mycase/index">查看更多</a></div>
+    </div>
+  </div>

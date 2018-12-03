@@ -1,0 +1,111 @@
+{extend name="Public:public" /}
+{block name="title"}疾风科技-用户列表{/block}
+{block name="man"}
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                用户列表
+                            </h2>
+                            <div style="text-align:right;">
+                            	<a class="btn btn-primary waves-effect" href="/adminuser/add">添加账号</a>
+                            	<bottom type="bottom" id="allupdate" data-color="pink" class="btn bg-pink waves-effect">全部删除</bottom>
+                            </div>  
+                        </div>
+                        <div class="body table-responsive">
+                            <div style="float:right;" id="DataTables_Table_1_filter" class="dataTables_filter">
+                                <span style="float:left;">搜索:</span>
+                                <form id="all" action="/adminuser/index" method="get" accept-charset="utf-8">
+                                <input name="search"  style="float:left;width:60%;border:0px solid;border-bottom:1px solid #ccc;-webkit-box-shadow:inset 0 0px 0px;box-shadow:inset 0 0px 0px;" type="search" class="form-control input-sm" placeholder="请输入关键词" value="{$k}">
+                                <input style="float:right;" type="submit" value="搜索">
+                                </form>
+                            </div>
+                            <table style="clear:both;" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                    	<th><input type="checkbox" name="xsz[]" id="qxk" ><label for="qxk">全选</label></th>	
+                                        <th>序号</th>
+                                        <th>账号</th>
+                                        <th>状态</th>
+                                        <th>注册时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="list">
+                                    <form id="all" action="/adminuser/allupdate" method="post" accept-charset="utf-8">
+                                    {if condition="!empty($res)"}
+                                	{volist name="res" id="vo"}
+                                    <tr>
+										<td>
+                                               <input type="checkbox" id="basic_checkbox_{$vo.id}" name="id[]" value="{$vo.id}" ><label for="basic_checkbox_{$vo.id}"></label>
+                                            
+										</td>
+                                        <td scope="row">{$vo.id}</td>
+                                        <td>{$vo.username}</td>
+                                    	<td>	
+                                    			{if condition="$vo.status == 0"} 启用
+												{else /} 禁用
+												{/if}
+                                    	</td>
+                                    	<td>{$vo.addtime|date="Y-m-d H:i:s",###}</td>
+                                        <td>
+                                            <a href="/adminuser/uradd/id/{$vo.id}" class="btn btn-primary waves-effect">角色分配</a>
+                                        	<a href="/adminuser/edit/id/{$vo.id}" class="btn btn-primary waves-effect">编辑</a>
+                                        	<bottom onclick="deletes({$vo.id})"  class="btn bg-pink waves-effect">删除</bottom>
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                    {else/}
+                                    <tr>
+                                        <td colspan="6" style="text-align:center;">没有数据</td>
+                                    </tr>
+                                    {/if}
+                                </form>    
+                                </tbody>
+                            </table>
+                        </div>
+                        <nav style="text-align:right;">
+                            {$res->appends($request)->render()}
+                        </nav>
+                    </div>
+                </div>
+{/block}
+{block name="myjs"}
+	<script>
+	function deletes(ids){
+            $.ajax({
+                url:'/adminuser/delete',
+                type:'post',
+                data:{id:ids},
+                success:function(data){
+                    if(data.code > 0){
+                        iziToast.error({timeout: 1000,title: '友情提示',message:data.msg});
+                    setTimeout(function(){
+                      location.href=data.url;
+                    },1000);
+                    }else{
+                        iziToast.error({timeout: 1000,title: '友情提示',message:data.msg}); 
+                    }
+                },
+            });
+        }
+
+    $("#qxk").click(function () { 
+         $("#list :checkbox").each(function () {  
+              $(this).prop("checked", !$(this).prop("checked"));  
+         });
+    });
+    $('#allupdate').click(function(){
+        $('#all').ajaxSubmit(function(data){
+            if(data.code > 0){
+                iziToast.error({timeout: 1000,title: '友情提示',message:data.msg});
+                setTimeout(function(){
+                      location.href=data['url'];
+                    },1000);
+            }else{
+               iziToast.error({timeout: 1000,title: '友情提示',message:data.msg});
+            }
+        });
+    });
+	</script>
+{/block}

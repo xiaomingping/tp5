@@ -1,0 +1,15 @@
+  <div>
+    <div class="layui-carousel" id="banner">
+      <div carousel-item>
+      {volist name="data" id="vo"}
+        <div>
+          <img src="{$vo.pic}">
+          <div class="panel">
+            <p class="title">{$vo.title}</p>
+            <p>{$vo.word}</p>
+          </div>
+        </div>
+      {/volist}
+      </div>
+    </div>
+  </div>

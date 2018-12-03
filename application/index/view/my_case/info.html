@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+  <title>{$data['title']}</title>
+  <meta name="keywords" content="{$data['keywords']}" />
+  <meta name="description" content="{$data['description']}" />
+  <link rel="stylesheet" href="/static/home/res/layui/css/layui.css">
+  <link rel="stylesheet" href="/static/home/res/static/css/index.css">
+</head>
+<body>
+  <!-- nav部分 -->
+  <div class="nav">
+    <div class="layui-container">
+      <!-- 公司logo -->
+      <div class="nav-logo">
+        <a href="index.html">
+          <img src="/static/home/res/static/img/logo.png" alt="{$data['title']}">
+        </a>
+      </div>
+      <div class="nav-list">
+        <button>
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="layui-nav" lay-filter="">
+           <li class="layui-nav-item"><a href="/index/index">首页</a></li>
+          <li class="layui-nav-item"><a href="/goods/index">产品</a></li>
+          <li class="layui-nav-item layui-this"><a href="/article/index">动态</a></li>
+          <li class="layui-nav-item"><a href="/myCase/index">案例</a></li>
+          <li class="layui-nav-item"><a href="/about/index">关于</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- main部分 -->
+  <div class="main-newsdate">
+    <div class="layui-container">
+      <p class="news"><a href="/goods/index">产品</a> > 产品详情</p>
+
+      <h1>{$data['title']}</h1>
+      <p class="pushtime">发布时间：<span>{$data['addtime']|date="Y-m-d",###}</span></p>
+      <div class="pushtime">
+          {$data['descr']}
+      </div>
+    </div> 
+  </div>
+  <!-- footer部分 -->
+ {:widget("Cate/footer")}

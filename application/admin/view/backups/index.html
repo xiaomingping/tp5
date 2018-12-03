@@ -1,0 +1,102 @@
+{extend name="Public:public" /}
+{block name="title"}疾风科技-备份列表{/block}
+{block name="man"}
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                备份列表
+                            </h2>
+
+                            <div style="text-align:right;">
+                            	<a class="btn btn-primary waves-effect" onclick="backup()"  href="#">立即备份</a>
+                            </div>  
+                        </div>
+                        <div class="body table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>序列</th>
+                                        <th>备份大小</th>
+                                        <th>备份时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="list">
+                                	{if condition="!empty($data)"}
+                                	{volist name="data" id="vo" key="k"}
+                                    <tr>
+                                        <td>{$k}</td>
+                                        <td>{$vo.size}</td>
+                                        <td>{$vo.time|date="Y-m-d H:i:s",###}</td>
+                                        <td>
+                                        	<a href="#" onclick="updata({$vo.time})" class="btn btn-primary waves-effect">还原</a>
+                                        	<bottom onclick="deletes({$vo.time})"  class="btn bg-pink waves-effect">删除</bottom>
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                    {else /}
+                                    <tr>
+                                    	<td colspan="5" style="text-align:center;">没有数据</td>
+                                    </tr>
+                                    {/if}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+{/block}
+{block name="myjs"}
+	<script>
+	function deletes(ids){
+            $.ajax({
+                url:'/adminbackup/delete',
+                type:'post',
+                data:{id:ids},
+                success:function(data){
+                    if(data.code > 0){
+                        iziToast.error({timeout: 1000,title: '友情提示',message:data.msg});
+                    setTimeout(function(){
+                      location.href=data.url;
+                    },1000);
+                    }else{
+                        iziToast.error({timeout: 1000,title: '友情提示',message:data.msg}); 
+                    }
+                },
+            });
+        }
+    function backup(){
+        $.ajax({
+                url:'/adminbackup/insert',
+                type:'get',
+                success:function(data){
+                    if(data.code > 0){
+                        iziToast.error({timeout: 1000,title: '友情提示',message:data.msg});
+                    setTimeout(function(){
+                      location.href=data.url;
+                    },1000);
+                    }else{
+                        iziToast.error({timeout: 1000,title: '友情提示',message:data.msg}); 
+                    }
+                },
+            });
+    }
+    function updata(ids){
+             $.ajax({
+                url:'/adminbackup/update',
+                type:'post',
+                data:{id:ids},
+                success:function(data){
+                    if(data.code > 0){
+                        iziToast.error({timeout: 1000,title: '友情提示',message:data.msg});
+                    setTimeout(function(){
+                      location.href=data.url;
+                    },1000);
+                    }else{
+                        iziToast.error({timeout: 1000,title: '友情提示',message:data.msg}); 
+                    }
+                },
+            });
+    }
+	</script>
+{/block}

@@ -1,0 +1,19 @@
+  <div class="main-product">
+    <div class="layui-container">
+      <p class="title"><span>核心产品</span></p>
+      <div class="layui-row layui-col-space25">
+  {volist name="data" id="vo"}
+        <div class="layui-col-sm6 layui-col-md3">
+          <div class="content">
+            <div><img width="64px" src="{$vo.pic}"></div>
+            <div>
+              <p class="label">{$vo.title}</p>
+              <p>{$vo.word}</p>
+            </div>
+            <a href="/goods/info/id/{$vo.id}">查看产品 ></a>
+          </div>
+        </div>
+  {/volist}
+      </div>
+    </div>
+  </div>
